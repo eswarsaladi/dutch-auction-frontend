@@ -1,0 +1,77 @@
+@charset "utf-8";
+
+// Import a Google Font
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,700");
+
+// Set your brand colors
+$purple: #8a00ff;
+$pink: #bf00ff;
+$brown: #757763;
+$beige-light: #d0d1cd;
+$beige-lighter: #eff0eb;
+$background-color: #020202;
+
+// Update Bulma's global variables
+$family-sans-serif: "Poppins", sans-serif;
+$grey-dark: $brown;
+$grey-light: $beige-light;
+$primary: $purple;
+$link: $pink;
+$widescreen-enabled: false;
+$fullhd-enabled: false;
+
+// Update some of Bulma's component variables
+$body-background-color: $background-color;
+$body-color: #ffffff;
+$control-border-width: 2px;
+$input-border-color: transparent;
+$input-shadow: none;
+$card-color: $beige-light;
+$card-background-color: #110e14;
+$label-color: $beige-lighter;
+$input-background-color: #110e14;
+$input-color: $beige-lighter;
+
+// Import only what you need from Bulma
+@import "../../../node_modules/bulma/bulma.sass";
+
+.navbar {
+  background-color: #020202;
+  color: #ffffff !important;
+  padding-left: 30px;
+  padding-right: 30px;
+
+  .buttons {
+    margin-left: 30px;
+  }
+}
+
+.navbar-item {
+  color: #ffffff;
+}
+
+.navbar-item img {
+  max-height: 5rem;
+  width: 250px;
+}
+
+.max-height-50 {
+  height: 50vh;
+}
+
+.border-white {
+  margin-top: 10px;
+  border-color: #fff;
+}
+
+.margin-left {
+  margin-left: 5px;
+}
+
+.background-color-secondary {
+  background-color: #110e14;
+}
+
+.margin-top-20 {
+  margin-top: 100px;
+}
