@@ -1,7 +1,11 @@
-import { useMoralisFile } from "react-moralis";
 import { useState } from "react";
 import { encode as btoa } from "base-64";
-import { useWeb3Contract, useMoralis } from "react-moralis";
+import {
+  useWeb3Contract,
+  useMoralisWeb3Api,
+  useMoralis,
+  useMoralisFile,
+} from "react-moralis";
 
 import nft from "../../constants/BasicNft.json";
 import address from "../../constants/contractAddress.json";
@@ -10,11 +14,23 @@ function CreateNft() {
   const [name, setName] = useState("");
   const [creator, setCreator] = useState("");
   const [description, setDescription] = useState("");
-  const [metafile, setMetaFile] = useState<File | null | undefined>();
+  const [metafile, setMetaFile] = useState();
+  const [tokenId, setTokenId] = useState("");
   const { error, isUploading, saveFile } = useMoralisFile();
   const { runContractFunction, isLoading, isFetching } = useWeb3Contract({});
+  const { account } = useMoralis();
+  const Web3Api = useMoralisWeb3Api();
 
-  const createNft = async (event: any) => {
+  const fetchContractNFTTransfers = async () => {
+    const options = {
+      address: address.nft,
+      chain: "rinkeby",
+    };
+    const nftTransfers = await Web3Api.token.getContractNFTTransfers(options);
+    return nftTransfers;
+  };
+
+  const createNft = async (event) => {
     // event.preventDefault();
 
     const image = await uploadFile();
@@ -34,7 +50,20 @@ function CreateNft() {
 
     await runContractFunction({
       params: { ...options, params: { _tokenuri: result } },
-      onSuccess: () => console.log("Success"),
+      onSuccess: async () => {
+        async function getNftTransfers() {
+          const data = await fetchContractNFTTransfers();
+          const { result } = data;
+          const filteredData = result.filter(
+            (obj) =>
+              obj.from_address ===
+                "0x0000000000000000000000000000000000000000" &&
+              obj.to_address === account
+          );
+          setTokenId(filteredData[0].token_id);
+        }
+        setTimeout(getNftTransfers(), 5000);
+      },
       onError: (error) => {
         console.log(error);
       },
@@ -52,12 +81,7 @@ function CreateNft() {
     return result?.ipfs();
   };
 
-  const uploadNFTDetails = async (metadata: {
-    name: string;
-    creator: string;
-    description: string;
-    image: string | undefined;
-  }) => {
+  const uploadNFTDetails = async (metadata) => {
     const result = await saveFile(
       "file.json",
       { base64: btoa(JSON.stringify(metadata)) },
@@ -140,6 +164,8 @@ function CreateNft() {
                 </button>
               </div>
             </form>
+            <br />
+            <p>TokenId:{tokenId}</p>
           </div>
         </div>
       )}
