@@ -7,7 +7,7 @@ import { useWeb3Contract } from "react-moralis";
 function ListItem() {
   const [nftAddress, setNftAddress] = useState("");
   const [tokenId, setTokenId] = useState("");
-  const [reservePrice, setReservePrice] = useState("");
+  const [reservePrice, setReservePrice] = useState(0);
   const [payToken, setPayToken] = useState("");
   const [discountRate, setDiscountRate] = useState("");
 
@@ -115,7 +115,7 @@ function ListItem() {
             placeholder="Reserve Price"
             id="reserve-price"
             value={reservePrice}
-            onChange={(event) => setReservePrice(event.target.value)}
+            onChange={(event) => setReservePrice(parseInt(event.target.value))}
           />
         </div>
       </div>
