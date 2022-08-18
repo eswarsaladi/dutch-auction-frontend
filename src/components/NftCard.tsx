@@ -159,7 +159,7 @@ function NftCard({
       params: {
         _nftAddress: nftAddress,
         _tokenId: tokenId,
-        _bidAmount: bidAmount,
+        _bidAmount: parseInt(bidAmount),
       },
     };
     await runContractFunction({

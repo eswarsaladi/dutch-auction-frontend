@@ -9,7 +9,7 @@ function ListItem() {
   const [tokenId, setTokenId] = useState("");
   const [reservePrice, setReservePrice] = useState(0);
   const [payToken, setPayToken] = useState("");
-  const [discountRate, setDiscountRate] = useState("");
+  const [discountRate, setDiscountRate] = useState(0);
 
   const { runContractFunction, isLoading, isFetching } = useWeb3Contract({});
 
@@ -127,7 +127,7 @@ function ListItem() {
             placeholder="Discount Rate"
             id="discount-rate"
             value={discountRate}
-            onChange={(event) => setDiscountRate(event.target.value)}
+            onChange={(event) => setDiscountRate(parseInt(event.target.value))}
           />
         </div>
       </div>
