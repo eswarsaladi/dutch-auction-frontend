@@ -56,11 +56,9 @@ function CreateNft() {
           const { result } = data;
           const filteredData = result.filter(
             (obj) =>
-              obj.from_address ===
-                "0x0000000000000000000000000000000000000000" &&
-              obj.to_address === account
+              obj.from_address === "0x0000000000000000000000000000000000000000"
           );
-          setTokenId(filteredData[0].token_id);
+          setTokenId(filteredData[0].token_id + 1);
         }
         setTimeout(getNftTransfers(), 5000);
       },
