@@ -5,10 +5,10 @@ import nftAbi from "../../constants/BasicNft.json";
 import { useWeb3Contract } from "react-moralis";
 
 function ListItem() {
-  const [nftAddress, setNftAddress] = useState("");
+  const [nftAddress, setNftAddress] = useState(address.nft);
   const [tokenId, setTokenId] = useState("");
   const [reservePrice, setReservePrice] = useState(0);
-  const [payToken, setPayToken] = useState("");
+  const [payToken, setPayToken] = useState(address.erc20);
   const [discountRate, setDiscountRate] = useState(0);
 
   const { runContractFunction, isLoading, isFetching } = useWeb3Contract({});

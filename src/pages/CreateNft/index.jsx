@@ -58,7 +58,7 @@ function CreateNft() {
             (obj) =>
               obj.from_address === "0x0000000000000000000000000000000000000000"
           );
-          setTokenId(filteredData[0].token_id + 1);
+          setTokenId(parseInt(filteredData[0].token_id) + 1);
         }
         setTimeout(getNftTransfers(), 5000);
       },
